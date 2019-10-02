@@ -40,7 +40,7 @@ h3{
     width: 15px;
     height: 15px;
     border-radius: 10px;
-    border: 1px solid lightslategray;
+    border: 1px solid gray;
 }
 .color-choice input:checked+label{
     transform: scale(1.4);

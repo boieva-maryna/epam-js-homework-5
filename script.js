@@ -8,11 +8,11 @@ const plants=[{
                 'default':'true'
             },
             {
-                'color':'#D61E20',
+                'color':'#ea6747',
                 'img':'img/Aloe-Vera_red.jpg'
             },
             {
-                'color':'#4C8F46',
+                'color':'#9fae7f',
                 'img':'img/Aloe-Vera_green.jpg'
             }
         ],
