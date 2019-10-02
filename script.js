@@ -3,11 +3,16 @@ const plants=[{
         'img':'img/Aloe-Vera_white.jpg',
         'pot_colors':[
             {
-                'color':'red',
+                'color':'#fff',
+                'img':'img/Aloe-Vera_white.jpg',
+                'default':'true'
+            },
+            {
+                'color':'#D61E20',
                 'img':'img/Aloe-Vera_red.jpg'
             },
             {
-                'color':'green',
+                'color':'#4C8F46',
                 'img':'img/Aloe-Vera_green.jpg'
             }
         ],
@@ -39,21 +44,42 @@ const plants=[{
     }
 ];
 function createPlantElement(plant_info){
-    let {name,img,price,pot_colors}=plant_info;
-    const article=document.createElement('article');
-    article.classList.add('plant');
-    const header=document.createElement('h3');
-    header.innerHTML=name;
-    const figure=document.createElement('figure');
-    const imgEl=document.createElement('img');
-    figure.appendChild(imgEl);
-    imgEl.src=img;
-    const span=document.createElement('span');
-    span.innerHTML=price;
-    article.appendChild(figure);
-    article.appendChild(header);
-    article.appendChild(span);
-    return article;
+    let {name,price,img,pot_colors}=plant_info;
+        const article=document.createElement('article');
+        article.classList.add('plant');
+        const header=document.createElement('h3');
+        header.innerHTML= name;
+        const figure=document.createElement('figure');
+        const imgEl=document.createElement('img');
+        figure.appendChild(imgEl);
+        imgEl.src= img;
+        const span=document.createElement('span');
+        span.innerHTML= price;
+        article.appendChild(figure);
+        article.appendChild(header);
+        article.appendChild(span);
+        if( pot_colors.length>0){
+            const form=document.createElement('form');
+            form.classList.add('color-choice');
+             pot_colors.forEach((el)=>{
+                const radio=document.createElement('input');
+                radio.type='radio';
+                radio.id=el.color;
+                radio.name= name;
+                if(el.default) radio.checked='true';
+                const label=document.createElement('label');
+                label.setAttribute('for',el.color);
+                radio.dataset.img=el.img;
+                label.style.background=el.color;
+                form.appendChild(radio);
+                form.appendChild(label);
+                radio.onchange=(e)=>{
+                    imgEl.src=e.target.dataset.img;
+                }
+            });
+            article.appendChild(form);
+        }
+        return article;
 }
 const items=document.getElementById('items');
 const more =document.getElementById('more');

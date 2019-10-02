@@ -8,6 +8,7 @@ h3{
 #items{
     display: grid;
     grid-gap: 20px;
+    padding: 20px;
 }
 .grid-view{
     grid-template-columns: repeat(4,1fr);
@@ -26,6 +27,23 @@ h3{
     display: block;
     width: 100%;
     height: 100%;
+}
+.color-choice{
+    display: flex;
+    justify-content:space-between;
+}
+.color-choice input{
+    display: none;
+}
+.color-choice label{
+    display: block;
+    width: 15px;
+    height: 15px;
+    border-radius: 10px;
+    border: 1px solid lightslategray;
+}
+.color-choice input:checked+label{
+    transform: scale(1.4);
 }
 @media (max-width:350px){
     .grid-view{
