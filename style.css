@@ -5,6 +5,12 @@
 h3{
     font-size: 1rem;
 }
+p{
+    text-align: right;
+}
+header,main{
+    padding: 0 10%;
+}
 #items{
     display: grid;
     grid-gap: 20px;
@@ -13,15 +19,26 @@ h3{
 .grid-view{
     grid-template-columns: repeat(4,1fr);
 }
+.grid-view .plant span{
+    display: none;
+}
 .list-view .plant{
     display: flex;
     flex-wrap:wrap;
-    gap: 10px;
+    flex-direction: row;
     align-items: center;
+    text-indent: 10px;
 }
 .list-view figure{
     flex-shrink: 1;
     height: 150px;
+    width:150px;
+}
+.list-view .color-choice{
+    display: none;
+}
+.list-view .plant span{
+    display: inline;
 }
 .plant img{
     display: block;
@@ -31,6 +48,7 @@ h3{
 .color-choice{
     display: flex;
     justify-content:space-between;
+    margin: 10px 0;
 }
 .color-choice input{
     display: none;
@@ -41,6 +59,7 @@ h3{
     height: 15px;
     border-radius: 10px;
     border: 1px solid gray;
+    cursor: pointer;
 }
 .color-choice input:checked+label{
     transform: scale(1.4);
@@ -51,6 +70,7 @@ h3{
     }
     .list-view figure{
         height: 100px;
+        width: 100px;
     }
 }
 @media (min-width:350px)and (max-width:550px){
