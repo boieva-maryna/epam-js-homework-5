@@ -330,9 +330,16 @@ function createPlantElement(plant_info){
         }
         return article;
 }
+let id=1;
+let plant_info={};
 const items=document.getElementById('items');
 const more =document.getElementById('more');
 const toggle=document.getElementById('toggleView');
+const toggleAddPlant=document.getElementById('toggleAddPlant');
+const addPlant=document.getElementById('addPlant');
+const optional=document.getElementById('optional');
+addPlant.classList.add('hide');
+optional.classList.add('hide');
 plants.slice(0,8).forEach(element => {
     items.appendChild(createPlantElement(element));
 });
@@ -346,3 +353,33 @@ more.onclick=(e)=>{
 toggle.onclick=(e)=>{
     items.classList.toggle('list-view');
 }
+toggleAddPlant.onclick=()=>{
+    addPlant.classList.toggle('show');
+}
+document.getElementById('addPot').onclick= function createPotForm(e){
+    e.preventDefault();
+    let pot_form=document.getElementById('group').cloneNode(true);
+    pot_form.id+=id;
+    pot_form.childNodes.forEach((node)=>{
+        if(node.id!==undefined&&node.nodeName!=='LABEL') node.id+=id;
+        if(node.nodeName==="INPUT") node.required=true;
+        else if(node.nodeName==="LABEL") node.setAttribute('for',node.getAttribute('for')+''+id);
+    });
+    const delPot=document.createElement('button');
+    delPot.id='delPot'+id;
+    delPot.innerHTML="-";
+    delPot.onclick=deleteSelf;
+    pot_form.appendChild(delPot);
+    optional.appendChild(pot_form);
+    id++;
+}
+function deleteSelf(e) {
+    e.preventDefault();
+    e.target.parentNode.remove();
+}
+function delImg(ev){
+    ev.preventDefault();
+    ev.target.previousSibling.previousSibling.value="";
+}
+document.getElementById('delImg').onclick=delImg;
+document.getElementById('delImg0').onclick=delImg;

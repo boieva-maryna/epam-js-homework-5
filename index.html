@@ -11,6 +11,42 @@
     <header>
         <h1>My plants</h1>
         <button id="toggleView">Toggele view</button>
+        <button id="toggleAddPlant">Add plant</button>
+        <form id="addPlant">
+            <fieldset id="required">
+                <legend>Create plant</legend>
+                <label for="addName">Enter plant name</label>
+                <input type="text" id="addName" placeholder="for example:Haworthia Zebra">
+                <label for="addPrice">Enter price</label>
+                <input required type="number" id="addPrice">
+                <label required for="addImg">Choose plant photo</label>
+                <input required type="file" accept="image/*" id="addImg">
+                <button id="delImg0">x</button>
+            </fieldset>
+            <fieldset id="optional">
+                <legend>Add plant pots colors</legend>
+                <button id="addPot">+</button>
+                <label for="potColor0">
+                        Choose default swatch color
+                        <input type="color" id="potColor0">
+                    </label>
+                    <label for="potColorName0">
+                        Enter color name
+                        <input placeholder="for example: light gray" type="text" id="potColorName0">
+                    </label>
+                    <small>The default color is needed if you are going to fill the next section, i.e. to add 1 or more colors to choose from</small>
+                <div id="group">
+                    <label for="potColor">Choose swatch color </label>
+                    <input type="color" id="potColor">
+                    <label for="potColorName">Enter color name</label>
+                    <input placeholder="for example: black" type="text" id="potColorName">
+                    <label for="potImg">Choose pot photo</label>
+                    <input type="file" accept="image/*" id="addImg">
+                    <button id="delImg">x</button>
+                </div>
+            </fieldset>
+            <input type="submit" value="Create plant">
+        </form>
     </header>
     <main>
         <div id="items" class="grid-view"></div>
