@@ -198,6 +198,90 @@ const plants=[{
         'pot_colors':[],
         'price':'25$'
     },
+    {
+        'id':'15',
+        'name':'Philodendron Silver',
+        'img':'img/Philodendron.jpg',
+        'pot_colors':[],
+        'price':'14$'
+    },
+    {
+        'id':'16',
+        'name':'ZZ Plant',
+        'img':'img/ZZ plant.jpg',
+        'pot_colors':[],
+        'price':'18$'
+    },
+    {
+        'id':'17',
+        'name':'Rubber Tree in medium dolores Planter',
+        'img':'img/Rubber Tree_1.jpg',
+        'pot_colors':[
+            {
+                'color':'#B3C4BE',
+                'color_name':'light blue',
+                'img':'img/Rubber Tree_3.jpg',
+            },
+            {
+                'color':'#e5ad93',
+                'color_name':'blush',
+                'img':'img/Rubber Tree_2.jpg'
+            },
+            {
+                'color':'#4c4746',
+                'color_name':'black',
+                'img':'img/Rubber Tree_1.jpg',
+                'default':'true'
+            },
+            {
+                'color':'#FDF4EC',
+                'color_name':'cream',
+                'img':'img/Rubber Tree_4.jpg'
+            }
+        ],
+        'price':'42$'
+    },
+    {
+        'id':'18',
+        'name':'Succulent Assortment',
+        'img':'img/Succulent Assortment.jpg',
+        'pot_colors':[],
+        'price':'30$'
+    },
+    {
+        'id':'19',
+        'name':'Echeveria Lola in ezra Planter',
+        'img':'img/Echeveria_2.jpg',
+        'pot_colors':[
+            {
+                'color':'#B3C4BE',
+                'color_name':'light blue',
+                'img':'img/Echeveria_5.jpg'
+            },
+            {
+                'color':'#e5ad93',
+                'color_name':'blush',
+                'img':'img/Echeveria_4.jpg'
+            },
+            {
+                'color':'#CC6A4B',
+                'color_name':'sonora',
+                'img':'img/Echeveria_3.jpg',
+            },
+            {
+                'color':'#4c4746',
+                'color_name':'black',
+                'img':'img/Echeveria_1.jpg'
+            },
+            {
+                'color':'#FDF4EC',
+                'color_name':'cream',
+                'img':'img/Echeveria_2.jpg',
+                'default':'true'
+            }
+        ],
+        'price':'23$'
+    },
 ];
 function createPlantElement(plant_info){
     let {name,price,img,pot_colors,id}=plant_info;
@@ -208,10 +292,12 @@ function createPlantElement(plant_info){
         const figure=document.createElement('figure');
         const imgEl=document.createElement('img');
         figure.appendChild(imgEl);
+        figure.classList.add("plant_img");
         imgEl.src= img;
         imgEl.setAttribute('alt',name);
         const p=document.createElement('p');
         p.innerHTML= price;
+        p.classList.add("plant_price");
         article.appendChild(figure);
         article.appendChild(header);
         article.appendChild(p);
@@ -219,6 +305,7 @@ function createPlantElement(plant_info){
             const form=document.createElement('form');
             form.classList.add('color-choice');
             const span=document.createElement('span');
+            span.classList.add('plant_pots');
             span.innerHTML=pot_colors.length+" pot colors: ";
             pot_colors.forEach((el,index)=>{
                 const radio=document.createElement('input');
@@ -251,7 +338,7 @@ plants.slice(0,8).forEach(element => {
 });
 more.onclick=(e)=>{
     let index=items.childNodes.length;
-        plants.slice(index,index+7).forEach(element => {
+        plants.slice(index,index+8).forEach(element => {
             items.appendChild(createPlantElement(element));
         });
     if(items.childNodes.length>=plants.length) more.style.display="none";

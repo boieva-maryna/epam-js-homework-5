@@ -2,11 +2,28 @@
     margin: 0;
     padding: 0;
 }
+.hide{
+    display: none;
+}
+.show{
+    display: block;
+}
+#addPlant fieldset,div[id^='group']{
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
 h3{
     font-size: 1rem;
 }
-p{
+.plant_price{
+    font-style: italic;
+    font-size: 1.1em;
     text-align: right;
+}
+.plant_pots{
+    color: gray;
 }
 header,main{
     padding: 0 10%;
@@ -19,7 +36,7 @@ header,main{
 .grid-view{
     grid-template-columns: repeat(4,1fr);
 }
-.grid-view .plant span{
+.grid-view .plant .plant_pots{
     display: none;
 }
 .list-view .plant{
@@ -29,7 +46,7 @@ header,main{
     align-items: center;
     text-indent: 10px;
 }
-.list-view figure{
+.list-view .plant_img{
     flex-shrink: 1;
     height: 150px;
     width:150px;
@@ -37,7 +54,7 @@ header,main{
 .list-view .color-choice{
     display: none;
 }
-.list-view .plant span{
+.list-view .plant .plant_pots{
     display: inline;
 }
 .plant img{
@@ -68,7 +85,7 @@ header,main{
     .grid-view{
         grid-template-columns: 1fr;
     }
-    .list-view figure{
+    .list-view .plant_img{
         height: 100px;
         width: 100px;
     }
