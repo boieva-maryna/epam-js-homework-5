@@ -297,10 +297,19 @@ plants.slice(0,8).forEach(element => {
 addPlantForm.onsubmit=(e)=>{
     e.preventDefault();
     let plant_info={};
+    plant_info.pot_colors=[];
     let req=checkRequired();
     let opt=checkOptional();
     if(req&&opt||req||opt) console.log('something wrong');
-    else console.log('ok');
+    if(!req){
+        plant_info.id=plants.length;
+        plant_info.name=addPlantForm.elements.addName.value;
+        plant_info.price=addPlantForm.elements.addPrice.value+'$';
+        plant_info.img=window.URL.createObjectURL(addPlantForm.elements.addImg.files[0]);
+    }
+    if(!opt) console.log(document.querySelectorAll("[name^=potColorName]"));
+    plants.push(plant_info);
+    if(items.childNodes.length==plants.length-1) items.appendChild(createPlantElement(plant_info));
 }
 more.onclick=(e)=>{
     let index=items.childNodes.length;
