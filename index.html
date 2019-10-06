@@ -13,39 +13,43 @@
         <button id="toggleView">Toggele view</button>
         <button id="toggleAddPlant">Add plant</button>
         <form id="addPlant">
-            <fieldset id="required">
+            <fieldset id="required" name="required">
                 <legend>Create plant</legend>
-                <label for="addName">Enter plant name</label>
-                <input type="text" id="addName" placeholder="for example:Haworthia Zebra">
-                <label for="addPrice">Enter price</label>
-                <input required type="number" id="addPrice">
-                <label required for="addImg">Choose plant photo</label>
-                <input required type="file" accept="image/*" id="addImg">
+                <label for="addName">Enter plant name
+                    <input type="text" name="addName" placeholder="for example:Haworthia Zebra">
+                </label>
+                <label for="addPrice">Enter price
+                    <input type="number" name="addPrice">
+                </label>
+                <label for="addImg">Choose plant photo
+                    <input type="file" accept="image/*" name="addImg">
+                </label>
                 <button id="delImg0">x</button>
             </fieldset>
-            <fieldset id="optional">
+            <fieldset id="optional" name="optional">
                 <legend>Add plant pots colors</legend>
-                <button id="addPot">+</button>
-                <label for="potColor0">
-                        Choose default swatch color
-                        <input type="color" id="potColor0">
+                <button id="addPot">Add more pot colors</button>
+                <label for="potColor0">Choose default swatch color
+                    <input type="color" name="potColor0">
+                </label>
+                <label for="potColorName0">Enter color name
+                    <input placeholder="for example: light gray" type="text" name="potColorName0">
+                </label>
+                <small>The default color is needed if you are going to fill the next section, i.e. to add 1 or more colors to choose from</small>
+                <fieldset name="pot">
+                    <label for="potColor">Choose swatch color 
+                        <input type="color" name="potColor">
                     </label>
-                    <label for="potColorName0">
-                        Enter color name
-                        <input placeholder="for example: light gray" type="text" id="potColorName0">
+                    <label for="potColorName">Enter color name
+                        <input placeholder="for example: black" type="text" name="potColorName">
                     </label>
-                    <small>The default color is needed if you are going to fill the next section, i.e. to add 1 or more colors to choose from</small>
-                <div id="group">
-                    <label for="potColor">Choose swatch color </label>
-                    <input type="color" id="potColor">
-                    <label for="potColorName">Enter color name</label>
-                    <input placeholder="for example: black" type="text" id="potColorName">
-                    <label for="potImg">Choose pot photo</label>
-                    <input type="file" accept="image/*" id="addImg">
+                    <label for="potImg">Choose pot photo
+                        <input type="file" accept="image/*" name="potImg">
+                    </label>
                     <button id="delImg">x</button>
-                </div>
+                </fieldset>
             </fieldset>
-            <input type="submit" value="Create plant">
+            <input type="submit" value="Create plant!🌱">
         </form>
     </header>
     <main>
