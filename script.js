@@ -307,7 +307,25 @@ addPlantForm.onsubmit=(e)=>{
         plant_info.price=addPlantForm.elements.addPrice.value+'$';
         plant_info.img=window.URL.createObjectURL(addPlantForm.elements.addImg.files[0]);
     }
-    if(!opt) console.log(document.querySelectorAll("[name^=potColorName]"));
+    if(opt!==null&&opt!==true) {
+        const color_names=document.querySelectorAll("[name^=potColorName]");
+        const colors=document.querySelectorAll("[name^=potSwatch]");
+        const imgs=document.querySelectorAll("[name^=potImg]");
+        plant_info.pot_colors.push({
+            color:colors[0].value,
+            color_name:color_names[0].value,
+            img:plant_info.img,
+            default:true
+        })
+        for(let i=1;i<color_names.length;i++){
+            let pot={}
+            pot.color=colors[i].value;
+            pot.color_name=color_names[i].value;
+            pot.img=window.URL.createObjectURL(imgs[i-1].files[0]);
+            plant_info.pot_colors.push(pot);
+        }
+    }
+    console.log(plant_info);
     plants.push(plant_info);
     if(items.childNodes.length==plants.length-1) items.appendChild(createPlantElement(plant_info));
 }
@@ -377,6 +395,7 @@ function checkOptional(){//если одно заполнено, нужно за
             if(optional[i].value===""&&optional[i].nodeName==="INPUT"&&optional[i].type!=="color") return isEmpty=true;
         }   
     }
+    else isEmpty=null;
     return isEmpty;
 }
 function createPlantElement(plant_info){
