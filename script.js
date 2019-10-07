@@ -283,6 +283,123 @@ const plants=[{
         'price':'23$'
     },
 ];
+let id=1;
+const items=document.getElementById('items');
+const more =document.getElementById('more');
+const toggle=document.getElementById('toggleView');
+const toggleAddPlant=document.getElementById('toggleAddPlant');
+const addPlant=document.getElementById('addPlant');
+const addPlantForm=document.forms[0];
+addPlant.classList.add('hide');
+plants.slice(0,8).forEach(element => {
+    items.appendChild(createPlantElement(element));
+});
+addPlantForm.onsubmit=(e)=>{
+    e.preventDefault();
+    let plant_info={};
+    plant_info.pot_colors=[];
+    let req=checkRequired();
+    let opt=checkOptional();
+    if(req&&opt||req||opt) alert('you must fill all the required fields');
+    else{
+        if(!req){
+            plant_info.id=plants.length;
+            plant_info.name=addPlantForm.elements.addName.value;
+            plant_info.price=addPlantForm.elements.addPrice.value+'$';
+            plant_info.img=window.URL.createObjectURL(addPlantForm.elements.addImg.files[0]);
+        }
+        if(opt!==null&&opt!==true) {
+            const color_names=document.querySelectorAll("[name^=potColorName]");
+            const colors=document.querySelectorAll("[name^=potSwatch]");
+            const imgs=document.querySelectorAll("[name^=potImg]");
+            plant_info.pot_colors.push({
+                color:colors[0].value,
+                color_name:color_names[0].value,
+                img:plant_info.img,
+                default:true
+            })
+            for(let i=1;i<color_names.length;i++){
+                let pot={}
+                pot.color=colors[i].value;
+                pot.color_name=color_names[i].value;
+                pot.img=window.URL.createObjectURL(imgs[i-1].files[0]);
+                plant_info.pot_colors.push(pot);
+            }
+        }
+        console.log(plant_info);
+        plants.push(plant_info);
+        if(items.childNodes.length==plants.length-1) items.appendChild(createPlantElement(plant_info));
+    }
+}
+more.onclick=(e)=>{
+    let index=items.childNodes.length;
+        plants.slice(index,index+8).forEach(element => {
+            items.appendChild(createPlantElement(element));
+        });
+    if(items.childNodes.length>=plants.length) more.style.display="none";
+};
+toggle.onclick=(e)=>{
+    items.classList.toggle('list-view');
+}
+toggleAddPlant.onclick=()=>{
+    addPlant.classList.toggle('show');
+}
+document.getElementById('addPot').onclick= function createPotForm(e){
+    e.preventDefault();
+    let pot_form=addPlantForm.elements.pot.cloneNode(true);
+    pot_form.name+=id;
+    for(let i=0;i<pot_form.elements.length;i++){
+        let element=pot_form.elements[i];
+        if(element.nodeName==="INPUT") {
+            element.name+=id;
+            element.parentNode.setAttribute('for',element.name);
+        }
+    }
+    pot_form.elements.delImg.onclick=delImg;
+    pot_form.elements.delImg.id+=id;
+    const delPot=document.createElement('button');
+    delPot.id='delPot'+id;
+    delPot.innerHTML="-";
+    delPot.onclick=deleteSelf;
+    pot_form.appendChild(delPot);
+    optional.appendChild(pot_form);
+    id++;
+}
+document.getElementById('delImg').onclick=delImg;
+document.getElementById('delImg0').onclick=delImg;
+function deleteSelf(e) {
+    e.preventDefault();
+    e.target.parentNode.remove();
+}
+function delImg(ev){
+    ev.preventDefault();
+    ev.target.previousSibling.previousSibling.childNodes[1].value="";
+}
+function checkRequired(){//все обязательные заполнены?
+    let isEmpty=false;
+    const required=addPlantForm.required.elements;
+    for(let i=0;i<required.length;i++){
+        if(required[i].value===""&&required[i].nodeName==="INPUT"){
+            return isEmpty=true;
+        } 
+    }
+    return isEmpty;
+}
+function checkOptional(){//если одно заполнено, нужно заполнить остальные
+    let isEmpty=false;
+    const optional=addPlantForm.optional.elements;
+    let countFilledOptional=0;
+    for(let i=0;i<optional.length;i++){
+        if(optional[i].value!==""&&optional[i].nodeName==="INPUT"&&optional[i].type!=="color") countFilledOptional++;
+    }
+    if(countFilledOptional>0) {
+        for(let i=0;i<optional.length;i++){
+            if(optional[i].value===""&&optional[i].nodeName==="INPUT"&&optional[i].type!=="color") return isEmpty=true;
+        }   
+    }
+    else isEmpty=null;
+    return isEmpty;
+}
 function createPlantElement(plant_info){
     let {name,price,img,pot_colors,id}=plant_info;
         const article=document.createElement('article');
@@ -329,20 +446,4 @@ function createPlantElement(plant_info){
             article.appendChild(form);
         }
         return article;
-}
-const items=document.getElementById('items');
-const more =document.getElementById('more');
-const toggle=document.getElementById('toggleView');
-plants.slice(0,8).forEach(element => {
-    items.appendChild(createPlantElement(element));
-});
-more.onclick=(e)=>{
-    let index=items.childNodes.length;
-        plants.slice(index,index+8).forEach(element => {
-            items.appendChild(createPlantElement(element));
-        });
-    if(items.childNodes.length>=plants.length) more.style.display="none";
-};
-toggle.onclick=(e)=>{
-    items.classList.toggle('list-view');
 }
