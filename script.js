@@ -412,7 +412,7 @@ function createPlantElement(plant_info){
         article.classList.add('plant');
         const header=document.createElement('h3');
         header.innerHTML= name;
-        const figure=document.createElement('figure');
+        const figure=document.createElement('div');
         const imgEl=document.createElement('img');
         figure.classList.add("plant_img");
         imgEl.src= img;
@@ -435,13 +435,17 @@ function createPlantElement(plant_info){
             pot_colors.forEach((el,index)=>{
                 const img=document.createElement('img');
                 img.src=el.img;
+                img.style.width=100/pot_colors.length+"%";
                 container.appendChild(img);
                 figure.appendChild(container);
                 const radio=document.createElement('input');
                 radio.type='radio';
                 radio.id=el.color_name+id;
                 radio.name= id;
-                if(el.default) radio.checked='true';
+                if(el.default) {
+                    radio.checked='true';
+                    container.style.marginLeft='-'+index*100+'%';
+                }
                 const label=document.createElement('label');
                 label.setAttribute('for',el.color_name+id);
                 radio.dataset.number=index;
