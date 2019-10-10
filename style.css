@@ -2,13 +2,25 @@
     margin: 0;
     padding: 0;
 }
+.plant{
+    display: grid;
+    grid-template-rows: 1fr repeat(3,0.1fr);
+}
+.plant_img{
+    overflow: hidden;
+}
+.plant_slider{ 
+    height: 100%;
+    display: flex;
+    transition:margin 0.5s ease-in-out;
+}
 .hide{
     display: none;
 }
 .show{
     display: block;
 }
-#addPlant fieldset,div[id^='group']{
+#addPlant fieldset{
     text-align: center;
     display: flex;
     flex-wrap: wrap;
