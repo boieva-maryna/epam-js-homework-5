@@ -2,6 +2,13 @@
     margin: 0;
     padding: 0;
 }
+.plant_img{
+    overflow: hidden;
+}
+.plant_slider{
+    height: 100%;
+    display: flex;
+}
 .hide{
     display: none;
 }
