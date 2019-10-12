@@ -291,9 +291,7 @@ const toggleAddPlant=document.getElementById('toggleAddPlant');
 const addPlant=document.getElementById('addPlant');
 const addPlantForm=document.forms[0];
 addPlant.classList.add('hide');
-plants.slice(0,8).forEach(element => {
-    items.appendChild(createPlantElement(element));
-});
+
 items.addEventListener('change',(e)=>{
     const slider=e.target.parentNode.parentNode.childNodes[0].childNodes[0];
     slider.style.marginLeft='-'+e.target.dataset.number*100+"%";
@@ -461,3 +459,70 @@ function createPlantElement(plant_info){
         else figure.appendChild(imgEl);
         return article;
 }
+class myElem{
+    constructor(plant_info){
+        this.data=plant_info;
+        this.element;
+        this.createElement();
+    }
+    createElement(){
+        this.element=document.createElement('article');
+        this.element.classList.add('plant');
+        if(this.data.pot_colors.length>0) this.createSlider();
+        else this.createImg();
+    }
+    createImg(){
+        const figure=document.createElement('div');
+        const imgEl=document.createElement('img');
+        figure.classList.add("plant_img");
+        imgEl.src= this.data.img;
+        imgEl.setAttribute('alt',name);
+        figure.appendChild(imgEl);
+        this.element.appendChild(figure);
+    }
+    createSlider(){
+        let pot_colors=this.data.pot_colors;
+        let id=this.data.id;
+        const figure=document.createElement('div');
+        figure.classList.add("plant_img");
+        const container=document.createElement('div');
+        container.classList.add("plant_slider");
+        container.style.width=100*pot_colors.length+'%';
+        const form=document.createElement('form');
+        form.classList.add('color-choice');
+        const span=document.createElement('span');
+        span.classList.add('plant_pots');
+        span.innerHTML=pot_colors.length+" pot colors: ";
+        pot_colors.forEach((el,index)=>{
+            const img=document.createElement('img');
+            img.src=el.img;
+            img.style.width=100/pot_colors.length+"%";
+            container.appendChild(img);
+            const radio=document.createElement('input');
+            radio.type='radio';
+            radio.id=el.color_name+id;
+            radio.name= id;
+            radio.onchange=()=>{console.log(this)}
+            if(el.default) {
+                radio.checked='true';
+                container.style.marginLeft='-'+index*100+'%';
+            }
+            const label=document.createElement('label');
+            label.setAttribute('for',el.color_name+id);
+            radio.dataset.number=index;
+            label.style.background=el.color;
+            form.appendChild(radio);
+            form.appendChild(label);
+            span.append(el.color_name);
+            if(index!==pot_colors.length-1) span.append(", ");
+        });
+        figure.appendChild(container);
+        this.element.appendChild(figure);
+        this.element.appendChild(form);
+        this.element.appendChild(span);
+    }
+}
+plants.slice(0,8).forEach(element => {
+    let plant= new myElem(element);
+    items.appendChild(plant.element);
+});
