@@ -300,19 +300,23 @@ class Plant{
         this.element.classList.add('plant');
         this.imgWr.classList.add("plant_img");
         this.element.appendChild(this.imgWr);
-        if(this.data.pot_colors.length>0) {
-            this.createSlider();
-            this.createControls();
-            this.element.appendChild(this.controls);
-        }
-        else {
-            this.createImg();
-            this.slider=null;
-        }
         this.createTitle();
         this.element.appendChild(this.title);
         this.createPrice();
         this.element.appendChild(this.price);
+        if(this.data.pot_colors.length>0) {
+            this.createSlider();
+            this.createControls();
+            this.creteTextColors();
+            this.element.appendChild(this.controls);
+            this.element.appendChild(this.textColors);
+        }
+        else {
+            this.createImg();
+            this.slider=null;
+            this.controls=null;
+            this.textColors=null;
+        }
     }
     createTitle(){
         this.title=document.createElement('h3');
