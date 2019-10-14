@@ -283,6 +283,102 @@ const plants=[{
         'price':'23$'
     },
 ];
+class Plant{
+    constructor(plant_info){
+        this.data=plant_info;
+        this.element;
+        this.imgWr=document.createElement('div');
+        this.slider;
+        this.controls;
+        this.textColors;
+        this.title;
+        this.price;
+        this.createElement();
+    }
+    createElement(){
+        this.element=document.createElement('article');
+        this.element.classList.add('plant');
+        this.imgWr.classList.add("plant_img");
+        this.element.appendChild(this.imgWr);
+        if(this.data.pot_colors.length>0) {
+            this.createSlider();
+            this.createControls();
+            this.element.appendChild(this.controls);
+        }
+        else {
+            this.createImg();
+            this.slider=null;
+        }
+        this.createTitle();
+        this.element.appendChild(this.title);
+        this.createPrice();
+        this.element.appendChild(this.price);
+    }
+    createTitle(){
+        this.title=document.createElement('h3');
+        this.title.innerHTML= this.data.name;
+    }
+    createPrice(){
+        this.price=document.createElement('p');
+        this.price.classList.add('plant_price');
+        this.price.innerHTML=this.data.price;
+    }
+    createImg(){
+        const imgEl=document.createElement('img');
+        imgEl.src= this.data.img;
+        imgEl.setAttribute('alt',name);
+        this.imgWr.appendChild(imgEl);
+    }
+    createSlider(){
+        let pot_colors=this.data.pot_colors;
+        this.slider=document.createElement('div');
+        this.slider.classList.add("plant_slider");
+        this.slider.style.width=100*pot_colors.length+'%';
+        pot_colors.forEach((el,index)=>{
+            const img=document.createElement('img');
+            img.src=el.img;
+            img.style.width=100/pot_colors.length+"%";
+            this.slider.appendChild(img);
+            if(el.default) {
+                this.slider.style.marginLeft='-'+index*100+'%';
+            }
+        });
+        this.imgWr.appendChild(this.slider);
+    }
+    createControls(){
+        let pot_colors=this.data.pot_colors;
+        let id=this.data.id;
+        this.controls=document.createElement('form');
+        this.controls.classList.add('color-choice');
+        pot_colors.forEach((el,index)=>{
+            const radio=document.createElement('input');
+            radio.type='radio';
+            radio.id=el.color_name+id;
+            radio.name= id;
+            radio.onchange=this.setSlider.bind(this);
+            if(el.default) radio.checked='true';
+            const label=document.createElement('label');
+            label.setAttribute('for',el.color_name+id);
+            radio.dataset.number=index;
+            label.style.background=el.color;
+            this.controls.appendChild(radio);
+            this.controls.appendChild(label);
+        });
+    }
+    creteTextColors(){
+        let pot_colors=this.data.pot_colors;
+        this.textColors=document.createElement('span');
+        this.textColors.classList.add('plant_pots');
+        this.textColors.innerHTML=pot_colors.length+" pot colors: ";
+        pot_colors.forEach((el,index)=>{
+            this.textColors.append(el.color_name);
+            if(index!==pot_colors.length-1) this.textColors.append(", ");
+        });
+    }
+    setSlider(e){
+        this.slider.style.marginLeft='-'+e.target.dataset.number*100+"%";
+    }
+}
 let id=1;
 const items=document.getElementById('items');
 const more =document.getElementById('more');
@@ -291,11 +387,6 @@ const toggleAddPlant=document.getElementById('toggleAddPlant');
 const addPlant=document.getElementById('addPlant');
 const addPlantForm=document.forms[0];
 addPlant.classList.add('hide');
-
-items.addEventListener('change',(e)=>{
-    const slider=e.target.parentNode.parentNode.childNodes[0].childNodes[0];
-    slider.style.marginLeft='-'+e.target.dataset.number*100+"%";
-});
 addPlantForm.onsubmit=(e)=>{
     e.preventDefault();
     let plant_info={};
@@ -330,18 +421,9 @@ addPlantForm.onsubmit=(e)=>{
         }
         console.log(plant_info);
         plants.push(plant_info);
-        if(items.childNodes.length==plants.length-1) items.appendChild(createPlantElement(plant_info));
+        if(items.childNodes.length==plants.length-1) items.appendChild(new Plant(plant_info).element);
     }
 }
-more.onclick=(e)=>{
-    //e.stopPropagation();
-    //e.stopImmediatePropagation();
-    let index=items.childNodes.length;
-        plants.slice(index,index+8).forEach(element => {
-            items.appendChild(createPlantElement(element));
-        });
-    if(items.childNodes.length>=plants.length) more.style.display="none";
-};
 toggle.onclick=(e)=>{
     items.classList.toggle('list-view');
 }
@@ -404,125 +486,16 @@ function checkOptional(){//если одно заполнено, нужно за
     else isEmpty=null;
     return isEmpty;
 }
-function createPlantElement(plant_info){
-    let {name,price,img,pot_colors,id}=plant_info;
-        const article=document.createElement('article');
-        article.classList.add('plant');
-        const header=document.createElement('h3');
-        header.innerHTML= name;
-        const figure=document.createElement('div');
-        const imgEl=document.createElement('img');
-        figure.classList.add("plant_img");
-        imgEl.src= img;
-        imgEl.setAttribute('alt',name);
-        const p=document.createElement('p');
-        p.innerHTML= price;
-        p.classList.add("plant_price");
-        article.appendChild(figure);
-        article.appendChild(header);
-        article.appendChild(p);
-        if( pot_colors.length>0){
-            const container=document.createElement('div');
-            container.classList.add("plant_slider");
-            container.style.width=100*pot_colors.length+'%';
-            const form=document.createElement('form');
-            form.classList.add('color-choice');
-            const span=document.createElement('span');
-            span.classList.add('plant_pots');
-            span.innerHTML=pot_colors.length+" pot colors: ";
-            pot_colors.forEach((el,index)=>{
-                const img=document.createElement('img');
-                img.src=el.img;
-                img.style.width=100/pot_colors.length+"%";
-                container.appendChild(img);
-                figure.appendChild(container);
-                const radio=document.createElement('input');
-                radio.type='radio';
-                radio.id=el.color_name+id;
-                radio.name= id;
-                if(el.default) {
-                    radio.checked='true';
-                    container.style.marginLeft='-'+index*100+'%';
-                }
-                const label=document.createElement('label');
-                label.setAttribute('for',el.color_name+id);
-                radio.dataset.number=index;
-                label.style.background=el.color;
-                form.appendChild(radio);
-                form.appendChild(label);
-                span.append(el.color_name);
-                if(index!==pot_colors.length-1) span.append(", ");
-            });
-            article.appendChild(span);
-            article.appendChild(form);
-        }
-        else figure.appendChild(imgEl);
-        return article;
-}
-class myElem{
-    constructor(plant_info){
-        this.data=plant_info;
-        this.element;
-        this.createElement();
-    }
-    createElement(){
-        this.element=document.createElement('article');
-        this.element.classList.add('plant');
-        if(this.data.pot_colors.length>0) this.createSlider();
-        else this.createImg();
-    }
-    createImg(){
-        const figure=document.createElement('div');
-        const imgEl=document.createElement('img');
-        figure.classList.add("plant_img");
-        imgEl.src= this.data.img;
-        imgEl.setAttribute('alt',name);
-        figure.appendChild(imgEl);
-        this.element.appendChild(figure);
-    }
-    createSlider(){
-        let pot_colors=this.data.pot_colors;
-        let id=this.data.id;
-        const figure=document.createElement('div');
-        figure.classList.add("plant_img");
-        const container=document.createElement('div');
-        container.classList.add("plant_slider");
-        container.style.width=100*pot_colors.length+'%';
-        const form=document.createElement('form');
-        form.classList.add('color-choice');
-        const span=document.createElement('span');
-        span.classList.add('plant_pots');
-        span.innerHTML=pot_colors.length+" pot colors: ";
-        pot_colors.forEach((el,index)=>{
-            const img=document.createElement('img');
-            img.src=el.img;
-            img.style.width=100/pot_colors.length+"%";
-            container.appendChild(img);
-            const radio=document.createElement('input');
-            radio.type='radio';
-            radio.id=el.color_name+id;
-            radio.name= id;
-            radio.onchange=()=>{console.log(this)}
-            if(el.default) {
-                radio.checked='true';
-                container.style.marginLeft='-'+index*100+'%';
-            }
-            const label=document.createElement('label');
-            label.setAttribute('for',el.color_name+id);
-            radio.dataset.number=index;
-            label.style.background=el.color;
-            form.appendChild(radio);
-            form.appendChild(label);
-            span.append(el.color_name);
-            if(index!==pot_colors.length-1) span.append(", ");
-        });
-        figure.appendChild(container);
-        this.element.appendChild(figure);
-        this.element.appendChild(form);
-        this.element.appendChild(span);
-    }
-}
 plants.slice(0,8).forEach(element => {
-    let plant= new myElem(element);
+    let plant= new Plant(element);
     items.appendChild(plant.element);
 });
+more.onclick=(e)=>{
+    //e.stopPropagation();
+    //e.stopImmediatePropagation();
+    let index=items.childNodes.length;
+        plants.slice(index,index+8).forEach(element => {
+            items.appendChild(new Plant(element).element);
+        });
+    if(items.childNodes.length>=plants.length) more.style.display="none";
+};
