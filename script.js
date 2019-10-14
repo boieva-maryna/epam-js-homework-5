@@ -2,6 +2,7 @@ const plants=[{
         'id':'0',
         'name':'Aloe Vera In Mini Dolores Planter',
         'img':'img/Aloe-Vera_1.jpg',
+        'available':'true',
         'pot_colors':[
             {
                 'color':'#FDF4EC',
@@ -26,13 +27,15 @@ const plants=[{
         'id':'1',
         'name':'Air Plant Trio In Tillandz Stand Planter',
         'img':'img/Airplants.jpg',
+        'available':'false',
         'pot_colors':[],
-        'price':'50$'
+        'price':'50$',
     },
     {
         'id':'2',
         'name':'Hoya Heart In Ezra Planter',
         'img':'img/Hoya-Kerrii_3.jpg',
+        'available':'true',
         'pot_colors':[
             {
                 'color':'#B3C4BE',
@@ -67,6 +70,7 @@ const plants=[{
         'id':'3',
         'name':'Monstera In Medium Grant Planter',
         'img':'img/Monstera.jpg',
+        'available':'false',
         'pot_colors':[],
         'price':'55$'
     },
@@ -74,6 +78,7 @@ const plants=[{
         'id':'4',
         'name':'Philodendron Green In Grant Ceramic Planter',
         'img':'img/Wax-plant.jpg',
+        'available':'false',
         'pot_colors':[],
         'price':'32$'
     },
@@ -81,6 +86,7 @@ const plants=[{
         'id':'5',
         'name':'Snake Laurentii Fiberglass Floor Planter',
         'img':'img/Snake_1.jpg',
+        'available':'true',
         'pot_colors':[
             {
                 'color':'#e5ad93',
@@ -100,6 +106,7 @@ const plants=[{
         'id':'6',
         'name':'ZZ Plant-6',
         'img':'img/Zamioculcas.jpg',
+        'available':'true',
         'pot_colors':[],
         'price':'25$'
     },
@@ -107,6 +114,7 @@ const plants=[{
         'id':'7',
         'name':'Pothos Neon',
         'img':'img/Pothos.jpg',
+        'available':'true',
         'pot_colors':[],
         'price':'15$'
     },
@@ -114,6 +122,7 @@ const plants=[{
         'id':'8',
         'name':'Pilea Peperomioides',
         'img':'img/Pilea.jpg',
+        'available':'true',
         'pot_colors':[],
         'price':'20$'
     },
@@ -121,6 +130,7 @@ const plants=[{
         'id':'9',
         'name':'Calathea Pinstripe In Mini Hyde Planter',
         'img':'img/Calathea Pinstripe_2.jpg',
+        'available':'false',
         'pot_colors':[
             {
                 'color':'#e2b641',
@@ -145,6 +155,7 @@ const plants=[{
         'id':'10',
         'name':'Parlor Palm',
         'img':'img/Parlor Palm.jpg',
+        'available':'true',
         'pot_colors':[],
         'price':'14$'
     },
@@ -152,6 +163,7 @@ const plants=[{
         'id':'11',
         'name':'Air Plant Trio in Andes Stands',
         'img':'img/Air Plant Trio.jpg',
+        'available':'true',
         'pot_colors':[],
         'price':'50$'
     },
@@ -159,6 +171,7 @@ const plants=[{
         'id':'12',
         'name':'Money Tree In Olmsted Planter',
         'img':'img/Money Tree_1.jpg',
+        'available':'true',
         'pot_colors':[
             {
                 'color':'#B3C4BE',
@@ -188,6 +201,7 @@ const plants=[{
         'id':'13',
         'name':'Alocasia Polly',
         'img':'img/Alocasia Polly.jpg',
+        'available':'true',
         'pot_colors':[],
         'price':'16$'
     },
@@ -195,6 +209,7 @@ const plants=[{
         'id':'14',
         'name':'Bird’s Nest Fern',
         'img':'img/Bird Nest.jpg',
+        'available':'true',
         'pot_colors':[],
         'price':'25$'
     },
@@ -202,6 +217,7 @@ const plants=[{
         'id':'15',
         'name':'Philodendron Silver',
         'img':'img/Philodendron.jpg',
+        'available':'false',
         'pot_colors':[],
         'price':'14$'
     },
@@ -209,6 +225,7 @@ const plants=[{
         'id':'16',
         'name':'ZZ Plant',
         'img':'img/ZZ plant.jpg',
+        'available':'false',
         'pot_colors':[],
         'price':'18$'
     },
@@ -216,6 +233,7 @@ const plants=[{
         'id':'17',
         'name':'Rubber Tree in medium dolores Planter',
         'img':'img/Rubber Tree_1.jpg',
+        'available':'true',
         'pot_colors':[
             {
                 'color':'#B3C4BE',
@@ -245,6 +263,7 @@ const plants=[{
         'id':'18',
         'name':'Succulent Assortment',
         'img':'img/Succulent Assortment.jpg',
+        'available':'false',
         'pot_colors':[],
         'price':'30$'
     },
@@ -252,6 +271,7 @@ const plants=[{
         'id':'19',
         'name':'Echeveria Lola in ezra Planter',
         'img':'img/Echeveria_2.jpg',
+        'available':'true',
         'pot_colors':[
             {
                 'color':'#B3C4BE',
@@ -293,6 +313,7 @@ class Plant{
         this.textColors;
         this.title;
         this.price;
+        this.isAvailable;
         this.createElement();
     }
     createElement(){
@@ -317,6 +338,8 @@ class Plant{
             this.controls=null;
             this.textColors=null;
         }
+        this.createIsAvailable();
+        this.element.appendChild(this.isAvailable);
     }
     createTitle(){
         this.title=document.createElement('h3');
@@ -379,6 +402,18 @@ class Plant{
             if(index!==pot_colors.length-1) this.textColors.append(", ");
         });
     }
+    createIsAvailable(){
+        this.isAvailable=document.createElement('span');
+        this.isAvailable.classList.add('available');
+        if(this.data.available==='true') {
+            this.isAvailable.innerHTML="Available!";
+            this.isAvailable.classList.add("available--true");
+        }
+        else {
+            this.isAvailable.innerHTML="Sold out!";
+            this.isAvailable.classList.add("available--false");
+        }
+    }
     setSlider(e){
         this.slider.style.marginLeft='-'+e.target.dataset.number*100+"%";
     }
@@ -404,6 +439,8 @@ addPlantForm.onsubmit=(e)=>{
             plant_info.name=addPlantForm.elements.addName.value;
             plant_info.price=addPlantForm.elements.addPrice.value+'$';
             plant_info.img=window.URL.createObjectURL(addPlantForm.elements.addImg.files[0]);
+            plants_info.isAvailable=true;/*все добавленные вручную доступны к заказу, 
+            т.к. мне лень пределывать форму*/
         }
         if(opt!==null&&opt!==true) {
             const color_names=document.querySelectorAll("[name^=potColorName]");
@@ -495,8 +532,6 @@ plants.slice(0,8).forEach(element => {
     items.appendChild(plant.element);
 });
 more.onclick=(e)=>{
-    //e.stopPropagation();
-    //e.stopImmediatePropagation();
     let index=items.childNodes.length;
         plants.slice(index,index+8).forEach(element => {
             items.appendChild(new Plant(element).element);

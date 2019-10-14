@@ -2,9 +2,25 @@
     margin: 0;
     padding: 0;
 }
+header,main,footer{
+    padding: 0 10%;
+}
+header,footer{
+    padding-top: 20px;
+    padding-bottom:20px; 
+    background-color: #5f7531;
+}
+footer nav{
+    display: flex;
+    justify-content: space-between;
+}
 .plant{
+    position: relative;
     display: grid;
     grid-template-rows: 1fr repeat(3,0.1fr);
+}
+.plant:hover .available{
+    display: block;
 }
 .plant_img{
     overflow: hidden;
@@ -13,6 +29,19 @@
     height: 100%;
     display: flex;
     transition:margin 0.5s ease-in-out;
+}
+.available{
+    display: none;
+    position: absolute;
+    top:0;
+    color:white;
+    padding: 3px;
+}
+.available--true{
+    background-color: #5f7531;
+}
+.available--false{
+    background-color:#777c6c;
 }
 .hide{
     display: none;
@@ -37,9 +66,6 @@ h3{
 .plant_pots{
     color: gray;
 }
-header,main{
-    padding: 0 10%;
-}
 #items{
     display: grid;
     grid-gap: 20px;
@@ -62,6 +88,10 @@ header,main{
     flex-shrink: 1;
     height: 150px;
     width:150px;
+}
+.list-view .available{
+    position: relative;
+    background-color: white;
 }
 .list-view .color-choice{
     display: none;

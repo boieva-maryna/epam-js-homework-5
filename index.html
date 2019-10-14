@@ -10,52 +10,61 @@
 <body>
     <header>
         <h1>My plants</h1>
-        <button id="toggleView">Toggele view</button>
-        <button id="toggleAddPlant">Add plant</button>
-        <form id="addPlant">
-            <fieldset id="required" name="required">
-                <legend>Create plant</legend>
-                <label for="addName">Enter plant name
-                    <input type="text" name="addName" placeholder="for example:Haworthia Zebra">
-                </label>
-                <label for="addPrice">Enter price
-                    <input type="number" name="addPrice">
-                </label>
-                <label for="addImg">Choose plant photo
-                    <input type="file" accept="image/*" name="addImg">
-                </label>
-                <button id="delImg0">x</button>
-            </fieldset>
-            <fieldset id="optional" name="optional">
-                <legend>Add plant pots colors</legend>
-                <button id="addPot">Add more pot colors</button>
-                <label for="potSwatch0">Choose default swatch color
-                    <input type="color" name="potSwatch0">
-                </label>
-                <label for="potColorName0">Enter color name
-                    <input placeholder="for example: light gray" type="text" name="potColorName0">
-                </label>
-                <small>The default color is needed if you are going to fill the next section, i.e. to add 1 or more colors to choose from</small>
-                <fieldset name="pot">
-                    <label for="potSwatch">Choose swatch color 
-                        <input type="color" name="potSwatch">
-                    </label>
-                    <label for="potColorName">Enter color name
-                        <input placeholder="for example: black" type="text" name="potColorName">
-                    </label>
-                    <label for="potImg">Choose pot photo
-                        <input type="file" accept="image/*" name="potImg">
-                    </label>
-                    <button id="delImg">x</button>
-                </fieldset>
-            </fieldset>
-            <input type="submit" value="Create plant!🌱">
-        </form>
     </header>
     <main>
+        <section>
+            <button id="toggleView">Toggele view</button>
+            <button id="toggleAddPlant">Add plant</button>
+            <form id="addPlant">
+                <fieldset id="required" name="required">
+                    <legend>Create plant</legend>
+                    <label for="addName">Enter plant name
+                        <input type="text" name="addName" placeholder="for example:Haworthia Zebra">
+                    </label>
+                    <label for="addPrice">Enter price
+                        <input type="number" name="addPrice">
+                    </label>
+                    <label for="addImg">Choose plant photo
+                        <input type="file" accept="image/*" name="addImg">
+                    </label>
+                    <button id="delImg0">x</button>
+                </fieldset>
+                <fieldset id="optional" name="optional">
+                    <legend>Add plant pots colors</legend>
+                    <button id="addPot">Add more pot colors</button>
+                    <label for="potSwatch0">Choose default swatch color
+                        <input type="color" name="potSwatch0">
+                    </label>
+                    <label for="potColorName0">Enter color name
+                        <input placeholder="for example: light gray" type="text" name="potColorName0">
+                    </label>
+                    <small>The default color is needed if you are going to fill the next section, i.e. to add 1 or more colors to choose from</small>
+                    <fieldset name="pot">
+                        <label for="potSwatch">Choose swatch color 
+                            <input type="color" name="potSwatch">
+                        </label>
+                        <label for="potColorName">Enter color name
+                            <input placeholder="for example: black" type="text" name="potColorName">
+                        </label>
+                        <label for="potImg">Choose pot photo
+                            <input type="file" accept="image/*" name="potImg">
+                        </label>
+                        <button id="delImg">x</button>
+                    </fieldset>
+                    </fieldset>
+                    <input type="submit" value="Create plant!🌱">
+            </form>
+        </section>
         <div id="items" class="grid-view"></div>
         <button id="more">See more</button>
     </main>
+    <footer>
+        <nav>
+            <a href="#">imstagram</a>
+            <a href="#">facebook</a>
+            <a href="#">twitter</a>
+        </nav>
+    </footer>
     <script defer src="script.js"></script>
 </body>
 </html>
