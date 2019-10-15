@@ -2,13 +2,23 @@
     margin: 0;
     padding: 0;
 }
+body{
+    color:#2b2b2b;
+    font-family: 'Lato', sans-serif;
+}
+a{
+    color:#23565a;
+}
 header,main,footer{
     padding: 0 10%;
 }
 header,footer{
     padding-top: 20px;
     padding-bottom:20px; 
-    background-color: #5f7531;
+    margin: 15px 0;
+}
+footer{
+    border-top:#9da2ad 1px solid;
 }
 footer nav{
     display: flex;
@@ -38,10 +48,10 @@ footer nav{
     padding: 3px;
 }
 .available--true{
-    background-color: #5f7531;
+    background-color: #aebfa0;
 }
 .available--false{
-    background-color:#777c6c;
+    background-color:#9da2ad;
 }
 .hide{
     display: none;
@@ -64,7 +74,7 @@ h3{
     text-align: right;
 }
 .plant_pots{
-    color: gray;
+    color: #9da2ad;
 }
 #items{
     display: grid;
@@ -93,7 +103,7 @@ h3{
     display: block;
     position: relative;
     background-color: white;
-    color:black;
+    color:#2b2b2b;
     text-decoration: underline;
 }
 .list-view .color-choice{
@@ -120,7 +130,7 @@ h3{
     width: 15px;
     height: 15px;
     border-radius: 10px;
-    border: 1px solid gray;
+    border: 1px solid #9da2ad;
     cursor: pointer;
 }
 .color-choice input:checked+label{
