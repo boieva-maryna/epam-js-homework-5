@@ -7,15 +7,35 @@
     <title>My plants</title>
     <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="icofont.min.css">
 </head>
 <body>
     <header>
         <h1>My plants</h1>
     </header>
     <main>
-        <section>
-            <button id="toggleView">Toggele view</button>
-            <button id="toggleAddPlant">Add plant</button>
+        <section class="forms">
+            <button id="toggleView" class="icofont-listing-box"></button>
+            <button id="toggleAddPlant" class="icofont-leaf"></button>
+            <button id="sortPriceUp" class="icofont-caret-up"></button>
+            <button id="sortPriceDown" class="icofont-caret-down"></button>
+            <button id="toggleFilter" class="icofont-filter"></button>
+            <form id="filter">
+                <label for="available">
+                    Only available
+                    <input id="available" type="checkbox">
+                </label>
+                <legend>Range price</legend>
+                <label for="priceFrom">
+                    From:
+                    <input id="priceFrom" type="number">
+                </label>
+                <label for="priceTo">
+                        To:
+                        <input id="priceTo" type="number">
+                </label>
+                <input type="submit" id="filterPlants" value="Filter plants!🌱">
+            </form>
             <form id="addPlant">
                 <fieldset id="required" name="required">
                     <legend>Create plant</legend>

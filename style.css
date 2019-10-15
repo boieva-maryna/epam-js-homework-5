@@ -24,6 +24,22 @@ footer nav{
     display: flex;
     justify-content: space-between;
 }
+.forms{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+#addPlant,#filter{
+    flex-basis: 100%;
+}
+.forms >button{
+    height: 2rem;
+    width: 2rem;
+    background-color: white;
+    color:#23565a;
+    border: none;
+    font-size: 2rem;
+}
 .plant{
     position: relative;
     display: grid;
@@ -60,7 +76,6 @@ footer nav{
     display: block;
 }
 #addPlant fieldset{
-    text-align: center;
     display: flex;
     flex-wrap: wrap;
     gap: 10px;

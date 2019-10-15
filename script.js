@@ -423,9 +423,12 @@ const items=document.getElementById('items');
 const more =document.getElementById('more');
 const toggle=document.getElementById('toggleView');
 const toggleAddPlant=document.getElementById('toggleAddPlant');
+const toggleFilter=document.getElementById("toggleFilter");
 const addPlant=document.getElementById('addPlant');
 const addPlantForm=document.forms[0];
+const filterForm=document.forms.filter;
 addPlant.classList.add('hide');
+filterForm.classList.add('hide');
 addPlantForm.onsubmit=(e)=>{
     e.preventDefault();
     let plant_info={};
@@ -466,10 +469,14 @@ addPlantForm.onsubmit=(e)=>{
     }
 }
 toggle.onclick=(e)=>{
+    e.target.classList.toggle("icofont-square");
     items.classList.toggle('list-view');
 }
 toggleAddPlant.onclick=()=>{
     addPlant.classList.toggle('show');
+}
+toggleFilter.onclick=()=>{
+    filterForm.classList.toggle('show');
 }
 document.getElementById('addPot').onclick= function createPotForm(e){
     e.preventDefault();
