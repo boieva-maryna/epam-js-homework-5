@@ -90,8 +90,11 @@ h3{
     width:150px;
 }
 .list-view .available{
+    display: block;
     position: relative;
     background-color: white;
+    color:black;
+    text-decoration: underline;
 }
 .list-view .color-choice{
     display: none;

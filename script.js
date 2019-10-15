@@ -439,7 +439,7 @@ addPlantForm.onsubmit=(e)=>{
             plant_info.name=addPlantForm.elements.addName.value;
             plant_info.price=addPlantForm.elements.addPrice.value+'$';
             plant_info.img=window.URL.createObjectURL(addPlantForm.elements.addImg.files[0]);
-            plants_info.isAvailable=true;/*все добавленные вручную доступны к заказу, 
+            plant_info.available='true';/*все добавленные вручную доступны к заказу, 
             т.к. мне лень пределывать форму*/
         }
         if(opt!==null&&opt!==true) {
