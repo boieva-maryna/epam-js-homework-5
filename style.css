@@ -57,17 +57,20 @@ footer nav{
     transition:margin 0.5s ease-in-out;
 }
 .available{
-    display: none;
     position: absolute;
     top:0;
     color:white;
     padding: 3px;
 }
 .available--true{
+    display: none;
     background-color: #aebfa0;
 }
 .available--false{
     background-color:#9da2ad;
+}
+[data-is-available=false] .plant_img{
+    filter: grayscale(40%) blur(0.5px) brightness(90%);
 }
 .hide{
     display: none;

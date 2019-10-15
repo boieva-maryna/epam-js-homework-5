@@ -318,6 +318,8 @@ class Plant{
     }
     createElement(){
         this.element=document.createElement('article');
+        this.element.dataset.isAvailable=this.data.available;
+        this.element.dataset.price=Number.parseInt(this.data.price);
         this.element.classList.add('plant');
         this.imgWr.classList.add("plant_img");
         this.element.appendChild(this.imgWr);
