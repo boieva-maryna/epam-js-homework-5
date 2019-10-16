@@ -97,6 +97,11 @@ footer nav{
     position: absolute;
     cursor: pointer;
 }
+.plant_chart--green{
+    color:white;
+    background-color: #aebfa0;
+    border-radius: 50%;
+}
 .available{
     position: absolute;
     top:0;

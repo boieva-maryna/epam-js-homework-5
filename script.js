@@ -56,7 +56,7 @@ addPlantForm.onsubmit= async(e)=>{
         let plant=new Plant(plant_info);
         plant.createToChart();
         plant.element.appendChild(plant.toChart);
-        plant.toChart.onclick=()=>{addPlantToChart(plant)}
+        plant.toChart.onclick=(e)=>{e.preventDefault();addPlantToChart(plant)}
         if(items.childNodes.length==plants.length-1) items.appendChild(plant.element);
     }
 }
@@ -158,9 +158,12 @@ async function init(){
     plants.slice(0,8).forEach(element => {
         let plant= new Plant(element);
         plant.createToChart();
-        if(plant.data.inChart) plant.toChart.classList.add("icofont-check-circled");
+        if(plant.data.inChart) {
+            plant.toChart.classList.add('plant_chart--green');
+            plant.toChart.classList.add("icofont-check-circled");
+        };
         plant.element.appendChild(plant.toChart);
-        plant.toChart.onclick=()=>{addPlantToChart(plant)}
+        plant.toChart.onclick=(e)=>{e.preventDefault();addPlantToChart(plant)}
         document.getElementById("items").appendChild(plant.element);
     });
 }
@@ -171,6 +174,7 @@ function addPlantToChart(plant){
     plants[plant.data.id].inChart=true;
     localStorage.setItem('plants',JSON.stringify(plants));
     plant.toChart.classList.add("icofont-check-circled");
+    plant.toChart.classList.add('plant_chart--green');
     basketIcon.firstChild.innerHTML=basket.length;
 }
 more.onclick=(e)=>{
@@ -178,9 +182,12 @@ more.onclick=(e)=>{
         plants.slice(index,index+8).forEach(element => {
             let plant=new Plant(element);
             plant.createToChart();
-            if(plant.data.inChart) plant.toChart.classList.add("icofont-check-circled");
+            if(plant.data.inChart) {
+                plant.toChart.classList.add('plant_chart--green');
+                plant.toChart.classList.add("icofont-check-circled");
+            };
             plant.element.appendChild(plant.toChart);
-            plant.toChart.onclick=()=>{addPlantToChart(plant)}
+            plant.toChart.onclick=(e)=>{e.preventDefault();addPlantToChart(plant)}
             items.appendChild(plant.element);
         });
     if(items.childNodes.length>=plants.length) more.style.display="none";
