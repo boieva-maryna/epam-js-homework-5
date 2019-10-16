@@ -1,4 +1,4 @@
-const plants=[{
+let plants=[{
         'id':'0',
         'name':'Aloe Vera In Mini Dolores Planter',
         'img':'img/Aloe-Vera_1.jpg',
@@ -303,6 +303,8 @@ const plants=[{
         'price':'23$'
     },
 ];
+if(!localStorage.getItem('plants')) localStorage.setItem('plants',JSON.stringify(plants));
+else plants=JSON.parse(localStorage.getItem('plants'));
 class Plant{
     constructor(plant_info){
         this.data=plant_info;
@@ -427,11 +429,11 @@ const toggle=document.getElementById('toggleView');
 const toggleAddPlant=document.getElementById('toggleAddPlant');
 const toggleFilter=document.getElementById("toggleFilter");
 const addPlant=document.getElementById('addPlant');
-const addPlantForm=document.forms[0];
+const addPlantForm=document.forms.addPlant;
 const filterForm=document.forms.filter;
 addPlant.classList.add('hide');
 filterForm.classList.add('hide');
-addPlantForm.onsubmit=(e)=>{
+addPlantForm.onsubmit= async(e)=>{
     e.preventDefault();
     let plant_info={};
     plant_info.pot_colors=[];
@@ -443,9 +445,10 @@ addPlantForm.onsubmit=(e)=>{
             plant_info.id=plants.length;
             plant_info.name=addPlantForm.elements.addName.value;
             plant_info.price=addPlantForm.elements.addPrice.value+'$';
-            plant_info.img=window.URL.createObjectURL(addPlantForm.elements.addImg.files[0]);
+            //plant_info.img=window.URL.createObjectURL(addPlantForm.elements.addImg.files[0]);
             plant_info.available='true';/*все добавленные вручную доступны к заказу, 
             т.к. мне лень пределывать форму*/
+            plant_info.img= await getBase64(addPlantForm.elements.addImg.files[0]);
         }
         if(opt!==null&&opt!==true) {
             const color_names=document.querySelectorAll("[name^=potColorName]");
@@ -461,14 +464,21 @@ addPlantForm.onsubmit=(e)=>{
                 let pot={}
                 pot.color=colors[i].value;
                 pot.color_name=color_names[i].value;
-                pot.img=window.URL.createObjectURL(imgs[i-1].files[0]);
+                pot.img=await getBase64(imgs[i-1].files[0]);
                 plant_info.pot_colors.push(pot);
             }
         }
         console.log(plant_info);
         plants.push(plant_info);
+        localStorage.setItem('plants',JSON.stringify(plants));
         if(items.childNodes.length==plants.length-1) items.appendChild(new Plant(plant_info).element);
     }
+}
+filterForm.onsubmit=(e)=>{
+    e.preventDefault();
+    let res=checkFilter();
+    if(!res) alert("You must fill the form first!");
+    console.log(res);
 }
 toggle.onclick=(e)=>{
     e.target.classList.toggle("icofont-square");
@@ -536,6 +546,22 @@ function checkOptional(){//если одно заполнено, нужно за
     else isEmpty=null;
     return isEmpty;
 }
+function checkFilter(){
+    let res={}
+    res.isAvailable=filterForm.available.checked;
+    res.min=filterForm.priceFrom.value;
+    res.max=filterForm.priceTo.value;
+    if((res.max!==""&&res.max!=="0")||(res.min!==""&&res.min!=="0")||res.isAvailable!==false) return res;
+    else return null;
+}
+function getBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+  }
 plants.slice(0,8).forEach(element => {
     let plant= new Plant(element);
     items.appendChild(plant.element);
