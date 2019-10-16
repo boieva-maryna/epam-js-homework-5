@@ -69,9 +69,12 @@ addPlantForm.onsubmit= async(e)=>{
 filterForm.onsubmit=(e)=>{
     e.preventDefault();
     let res=checkFilter();
-    if(!res) alert("You must fill the form first!");
-    console.log(res);
-    filterItems(res);
+    if(res) {
+        filterForm.dataset.filled=true;
+        console.log(res);
+        filterItems(res);
+    }
+    else alert("You must fill the form first!");
 }
 toggle.onclick=(e)=>{
     e.target.classList.toggle("icofont-square");
@@ -210,11 +213,14 @@ function sortItemsDown(){
         .forEach((p,sort) => items.insertBefore(p, items[sort-1]))
 }
 function filterItems(filter){
+    Array.from(document.body.getElementsByClassName('plant')).forEach(el=>{el.style.display="grid"});//Ужас,правда?
     Array.from(document.body.getElementsByClassName('plant')).forEach(el=>{
         if(filter.isAvailable==true && el.dataset.isAvailable=="false"){
+            console.log(el);
             el.style.display="none";
         }
-        if((filter.min!=="0"&&el.dataset.price<=filter.min)||(filter.max!=="0"&&el.dataset.price>=filter.max)) el.style.display="none";
+        if(filter.min!==0&&el.dataset.price<filter.min) el.style.display="none";
+        if(filter.max!==0&&el.dataset.price>filter.max) el.style.display="none";
     });
 }
 more.onclick=(e)=>{
@@ -233,4 +239,8 @@ more.onclick=(e)=>{
     if(sortPriceDown.dataset.checked=="true") sortItemsDown();
     if(sortPriceUp.dataset.checked=="true") sortItemsUp();
     if(items.childNodes.length>=plants.length) more.style.display="none";
+    if(filterForm.dataset.filled=="true"){
+        let res=checkFilter();
+        filterItems(res);
+    }
 };
