@@ -159,7 +159,7 @@ function getBase64(file) {
     });
 }
 async function getPnantsJson(){
-    const url='https://raw.githubusercontent.com/boieva-maryna/epam-js-homework-5/classes/plants.json';
+    const url='https://raw.githubusercontent.com/boieva-maryna/epam-js-homework-5/master/plants.json';
         plants= await fetch(url).then(response => response.json());
 }
 async function init(){
