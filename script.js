@@ -2,6 +2,10 @@ let plants;
 init();
 let basket=[];
 if(localStorage.getItem('basket')) basket=JSON.parse(localStorage.getItem('basket'));
+else if(plants){
+    plants.forEach(el=>el.inChart=false);
+    localStorage.setItem('plants',JSON.stringify(plants));
+}
 let id=1;
 const items=document.getElementById('items');
 const more =document.getElementById('more');
@@ -158,7 +162,7 @@ async function init(){
     plants.slice(0,8).forEach(element => {
         let plant= new Plant(element);
         plant.createToChart();
-        if(plant.data.inChart) {
+        if(plant.data.inChart==true) {
             plant.toChart.classList.add('plant_chart--green');
             plant.toChart.classList.add("icofont-check-circled");
         };
@@ -168,7 +172,7 @@ async function init(){
     });
 }
 function addPlantToChart(plant){
-    if(plant.data.inChart) return;
+    if(plant.data.inChart==true) return;
     basket.push(plant.getData());
     localStorage.setItem('basket',JSON.stringify(basket));
     plants[plant.data.id].inChart=true;
@@ -182,7 +186,7 @@ more.onclick=(e)=>{
         plants.slice(index,index+8).forEach(element => {
             let plant=new Plant(element);
             plant.createToChart();
-            if(plant.data.inChart) {
+            if(plant.data.inChart==true) {
                 plant.toChart.classList.add('plant_chart--green');
                 plant.toChart.classList.add("icofont-check-circled");
             };
