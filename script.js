@@ -221,7 +221,7 @@ more.onclick=(e)=>{
             plant.toChart.onclick=(e)=>{e.preventDefault();addPlantToChart(plant)}
             items.appendChild(plant.element);
         });
-    if(sortPriceDown.dataset.checked==true) sortItemsDown();
-    if(sortPriceUp.dataset.checked==true) sortItemsUp();
+    if(sortPriceDown.dataset.checked=="true") sortItemsDown();
+    if(sortPriceUp.dataset.checked=="true") sortItemsUp();
     if(items.childNodes.length>=plants.length) more.style.display="none";
 };
