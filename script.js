@@ -190,8 +190,17 @@ function addPlantToChart(plant){
     plant.toChart.classList.add('plant_chart--green');
     basketIcon.firstChild.innerHTML=basket.length;
 }
-function sortItems(){
-    ite
+sortPriceUp.onclick=sortItemsUp;
+sortPriceDown.onclick=sortItemsDown;
+function sortItemsUp(){
+    Array.from(document.body.getElementsByClassName('plant'))
+        .sort((a, b) => a.dataset.price-b.dataset.price)
+        .forEach((p,sort) => items.insertBefore(p, items[sort-1]))
+}
+function sortItemsDown(){
+    Array.from(document.body.getElementsByClassName('plant'))
+        .sort((a, b) => b.dataset.price-a.dataset.price)
+        .forEach((p,sort) => items.insertBefore(p, items[sort-1]))
 }
 more.onclick=(e)=>{
     let index=items.childNodes.length;
