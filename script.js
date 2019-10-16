@@ -16,6 +16,8 @@ const addPlant=document.getElementById('addPlant');
 const addPlantForm=document.forms.addPlant;
 const filterForm=document.forms.filter;
 const basketIcon=document.getElementsByClassName('basket')[0];
+const sortPricesUp=document.getElementById('sortPricesUp');
+const sortPricesDown=document.getElementById('sortPricesDown');
 basketIcon.firstChild.innerHTML=basket.length;
 addPlant.classList.add('hide');
 filterForm.classList.add('hide');
@@ -192,12 +194,18 @@ function addPlantToChart(plant){
 }
 sortPriceUp.onclick=sortItemsUp;
 sortPriceDown.onclick=sortItemsDown;
-function sortItemsUp(){
+function sortItemsUp(e){
+    if(sortPriceUp.dataset.checked==true) return;
+    sortPriceUp.dataset.checked=true;
+    sortPriceDown.dataset.checked=false;
     Array.from(document.body.getElementsByClassName('plant'))
         .sort((a, b) => a.dataset.price-b.dataset.price)
         .forEach((p,sort) => items.insertBefore(p, items[sort-1]))
 }
-function sortItemsDown(){
+function sortItemsDown(e){
+    if(sortPriceDown.dataset.checked==true) return;
+    sortPriceDown.dataset.checked=true;
+    sortPriceUp.dataset.checked=false;
     Array.from(document.body.getElementsByClassName('plant'))
         .sort((a, b) => b.dataset.price-a.dataset.price)
         .forEach((p,sort) => items.insertBefore(p, items[sort-1]))
@@ -215,5 +223,7 @@ more.onclick=(e)=>{
             plant.toChart.onclick=(e)=>{e.preventDefault();addPlantToChart(plant)}
             items.appendChild(plant.element);
         });
+    if(sortPriceDown.dataset.checked==true) sortItemsDown();
+    else if(sortPriceUp.dataset.checked==true) sortItemsUp();
     if(items.childNodes.length>=plants.length) more.style.display="none";
 };
