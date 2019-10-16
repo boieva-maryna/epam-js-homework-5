@@ -194,16 +194,14 @@ function addPlantToChart(plant){
 }
 sortPriceUp.onclick=sortItemsUp;
 sortPriceDown.onclick=sortItemsDown;
-function sortItemsUp(e){
-    if(sortPriceUp.dataset.checked==true) return;
+function sortItemsUp(){
     sortPriceUp.dataset.checked=true;
     sortPriceDown.dataset.checked=false;
     Array.from(document.body.getElementsByClassName('plant'))
         .sort((a, b) => a.dataset.price-b.dataset.price)
         .forEach((p,sort) => items.insertBefore(p, items[sort-1]))
 }
-function sortItemsDown(e){
-    if(sortPriceDown.dataset.checked==true) return;
+function sortItemsDown(){
     sortPriceDown.dataset.checked=true;
     sortPriceUp.dataset.checked=false;
     Array.from(document.body.getElementsByClassName('plant'))
@@ -224,6 +222,6 @@ more.onclick=(e)=>{
             items.appendChild(plant.element);
         });
     if(sortPriceDown.dataset.checked==true) sortItemsDown();
-    else if(sortPriceUp.dataset.checked==true) sortItemsUp();
+    if(sortPriceUp.dataset.checked==true) sortItemsUp();
     if(items.childNodes.length>=plants.length) more.style.display="none";
 };
