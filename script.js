@@ -176,7 +176,12 @@ function addPlantToChart(plant){
 more.onclick=(e)=>{
     let index=items.childNodes.length;
         plants.slice(index,index+8).forEach(element => {
-            items.appendChild(new Plant(element).element);
+            let plant=new Plant(element);
+            plant.createToChart();
+            if(plant.data.inChart) plant.toChart.classList.add("icofont-check-circled");
+            plant.element.appendChild(plant.toChart);
+            plant.toChart.onclick=()=>{addPlantToChart(plant)}
+            items.appendChild(plant.element);
         });
     if(items.childNodes.length>=plants.length) more.style.display="none";
 };
