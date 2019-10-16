@@ -71,6 +71,7 @@ filterForm.onsubmit=(e)=>{
     let res=checkFilter();
     if(!res) alert("You must fill the form first!");
     console.log(res);
+    filterItems(res);
 }
 toggle.onclick=(e)=>{
     e.target.classList.toggle("icofont-square");
@@ -207,6 +208,14 @@ function sortItemsDown(){
     Array.from(document.body.getElementsByClassName('plant'))
         .sort((a, b) => b.dataset.price-a.dataset.price)
         .forEach((p,sort) => items.insertBefore(p, items[sort-1]))
+}
+function filterItems(filter){
+    Array.from(document.body.getElementsByClassName('plant')).forEach(el=>{
+        if(filter.isAvailable==true && el.dataset.isAvailable=="false"){
+            el.style.display="none";
+        }
+        if((filter.min!=="0"&&el.dataset.price<=filter.min)||(filter.max!=="0"&&el.dataset.price>=filter.max)) el.style.display="none";
+    });
 }
 more.onclick=(e)=>{
     let index=items.childNodes.length;
