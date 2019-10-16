@@ -5,57 +5,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>My plants</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="icofont.min.css">
 </head>
 <body>
     <header>
         <h1>My plants</h1>
-        <button id="toggleView">Toggele view</button>
-        <button id="toggleAddPlant">Add plant</button>
-        <form id="addPlant">
-            <fieldset id="required" name="required">
-                <legend>Create plant</legend>
-                <label for="addName">Enter plant name
-                    <input type="text" name="addName" placeholder="for example:Haworthia Zebra">
-                </label>
-                <label for="addPrice">Enter price
-                    <input type="number" name="addPrice">
-                </label>
-                <label for="addImg">Choose plant photo
-                    <input type="file" accept="image/*" name="addImg">
-                </label>
-                <button id="delImg0">x</button>
-            </fieldset>
-            <fieldset id="optional" name="optional">
-                <legend>Add plant pots colors</legend>
-                <button id="addPot">Add more pot colors</button>
-                <label for="potSwatch0">Choose default swatch color
-                    <input type="color" name="potSwatch0">
-                </label>
-                <label for="potColorName0">Enter color name
-                    <input placeholder="for example: light gray" type="text" name="potColorName0">
-                </label>
-                <small>The default color is needed if you are going to fill the next section, i.e. to add 1 or more colors to choose from</small>
-                <fieldset name="pot">
-                    <label for="potSwatch">Choose swatch color 
-                        <input type="color" name="potSwatch">
-                    </label>
-                    <label for="potColorName">Enter color name
-                        <input placeholder="for example: black" type="text" name="potColorName">
-                    </label>
-                    <label for="potImg">Choose pot photo
-                        <input type="file" accept="image/*" name="potImg">
-                    </label>
-                    <button id="delImg">x</button>
-                </fieldset>
-            </fieldset>
-            <input type="submit" value="Create plant!🌱">
-        </form>
     </header>
     <main>
+        <section class="forms">
+            <button id="toggleView" class="icofont-listing-box"></button>
+            <button id="toggleAddPlant" class="icofont-leaf"></button>
+            <button id="sortPriceUp" class="icofont-caret-up"></button>
+            <button id="sortPriceDown" class="icofont-caret-down"></button>
+            <button id="toggleFilter" class="icofont-filter"></button>
+            <form id="filter">
+                <label for="available">
+                    Only available
+                    <input id="available" type="checkbox">
+                </label>
+                <legend>Range price</legend>
+                <label for="priceFrom">
+                    From:
+                    <input id="priceFrom" type="number">
+                </label>
+                <label for="priceTo">
+                        To:
+                        <input id="priceTo" type="number">
+                </label>
+                <input type="submit" id="filterPlants" value="Filter plants!🌱">
+            </form>
+            <form id="addPlant">
+                <fieldset id="required" name="required">
+                    <legend>Create plant</legend>
+                    <label for="addName">Enter plant name
+                        <input type="text" name="addName" placeholder="for example:Haworthia Zebra">
+                    </label>
+                    <label for="addPrice">Enter price
+                        <input type="number" name="addPrice">
+                    </label>
+                    <label for="addImg">Choose plant photo
+                        <input type="file" accept="image/*" name="addImg">
+                    </label>
+                    <button id="delImg0">x</button>
+                </fieldset>
+                <fieldset id="optional" name="optional">
+                    <legend>Add plant pots colors</legend>
+                    <button id="addPot">Add more pot colors</button>
+                    <label for="potSwatch0">Choose default swatch color
+                        <input type="color" name="potSwatch0">
+                    </label>
+                    <label for="potColorName0">Enter color name
+                        <input placeholder="for example: light gray" type="text" name="potColorName0">
+                    </label>
+                    <small>The default color is needed if you are going to fill the next section, i.e. to add 1 or more colors to choose from</small>
+                    <fieldset name="pot">
+                        <label for="potSwatch">Choose swatch color 
+                            <input type="color" name="potSwatch">
+                        </label>
+                        <label for="potColorName">Enter color name
+                            <input placeholder="for example: black" type="text" name="potColorName">
+                        </label>
+                        <label for="potImg">Choose pot photo
+                            <input type="file" accept="image/*" name="potImg">
+                        </label>
+                        <button id="delImg">x</button>
+                    </fieldset>
+                    </fieldset>
+                    <input type="submit" value="Create plant!🌱">
+            </form>
+        </section>
         <div id="items" class="grid-view"></div>
         <button id="more">See more</button>
+        <a href="basket.html" class="icofont-basket basket"><span></span></a>
     </main>
+    <footer>
+        <nav>
+            <a href="#" class="icofont-instagram"></a>
+            <a href="#" class="icofont-twitter"></a>
+            <a href="#" class="icofont-facebook"></a>
+        </nav>
+    </footer>
+    <script defer src="plant.js"></script>
     <script defer src="script.js"></script>
 </body>
 </html>

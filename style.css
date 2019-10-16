@@ -2,9 +2,86 @@
     margin: 0;
     padding: 0;
 }
+body{
+    color:#2b2b2b;
+    font-family: 'Lato', sans-serif;
+}
+a{
+    color:#23565a;
+    text-decoration: none;
+}
+button{
+    cursor: pointer;
+}
+header,main,footer{
+    padding: 0 10%;
+}
+header,footer{
+    padding-top: 20px;
+    padding-bottom:20px; 
+    margin: 15px 0;
+}
+footer{
+    border-top:#9da2ad 1px solid;
+}
+footer nav{
+    display: flex;
+    justify-content: space-between;
+    font-size: 2rem;
+}
+.forms{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+#addPlant,#filter{
+    flex-basis: 100%;
+}
+.forms >button{
+    height: 2rem;
+    width: 2rem;
+    background-color: white;
+    color:#23565a;
+    border: none;
+    font-size: 2rem;
+}
+.basket{
+    display: block;
+    width: 4rem;
+    height: 4rem;
+    position: fixed;
+    top:50%;
+    left: 90%;
+    border:1px solid #9da2ad;
+    border-radius: 50%;
+    background-color: #23565a;
+    color:white;
+    text-align: center;
+}
+.basket::before{
+    font-size: 2rem;
+    line-height: 4rem;
+}
+.basket span{
+    font-size: 0.7rem;
+    height: 1rem;
+    min-width:1rem;
+    line-height: 1rem;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 60%;
+    background-color: white;
+    color:#23565a;
+    border-radius: 50%;
+}
 .plant{
+    position: relative;
     display: grid;
     grid-template-rows: 1fr repeat(3,0.1fr);
+}
+.plant:hover .available{
+    display: block;
 }
 .plant_img{
     overflow: hidden;
@@ -14,6 +91,33 @@
     display: flex;
     transition:margin 0.5s ease-in-out;
 }
+.plant_chart{
+    right: 0;
+    font-size: 1.5rem;
+    position: absolute;
+    cursor: pointer;
+}
+.plant_chart--green{
+    color:white;
+    background-color: #aebfa0;
+    border-radius: 50%;
+}
+.available{
+    position: absolute;
+    top:0;
+    color:white;
+    padding: 3px;
+}
+.available--true{
+    display: none;
+    background-color: #aebfa0;
+}
+.available--false{
+    background-color:#9da2ad;
+}
+[data-is-available=false] .plant_img{
+    filter: grayscale(40%) blur(0.5px) brightness(90%);
+}
 .hide{
     display: none;
 }
@@ -21,7 +125,6 @@
     display: block;
 }
 #addPlant fieldset{
-    text-align: center;
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
@@ -35,10 +138,7 @@ h3{
     text-align: right;
 }
 .plant_pots{
-    color: gray;
-}
-header,main{
-    padding: 0 10%;
+    color: #9da2ad;
 }
 #items{
     display: grid;
@@ -62,6 +162,13 @@ header,main{
     flex-shrink: 1;
     height: 150px;
     width:150px;
+}
+.list-view .available{
+    display: block;
+    position: relative;
+    background-color: white;
+    color:#2b2b2b;
+    text-decoration: underline;
 }
 .list-view .color-choice{
     display: none;
@@ -87,7 +194,7 @@ header,main{
     width: 15px;
     height: 15px;
     border-radius: 10px;
-    border: 1px solid gray;
+    border: 1px solid #9da2ad;
     cursor: pointer;
 }
 .color-choice input:checked+label{
