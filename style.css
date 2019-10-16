@@ -91,6 +91,12 @@ footer nav{
     display: flex;
     transition:margin 0.5s ease-in-out;
 }
+.plant_chart{
+    right: 0;
+    font-size: 1.5rem;
+    position: absolute;
+    cursor: pointer;
+}
 .available{
     position: absolute;
     top:0;

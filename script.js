@@ -1,8 +1,5 @@
-let plant;
-if(!localStorage.getItem('plants')){
-    localStorage.setItem('plants',JSON.stringify(plants));
-}
-else plants=JSON.parse(localStorage.getItem('plants'));
+let plants;
+init();
 let basket=[];
 if(localStorage.getItem('basket')) basket=JSON.parse(localStorage.getItem('basket'));
 let id=1;
@@ -56,7 +53,11 @@ addPlantForm.onsubmit= async(e)=>{
         console.log(plant_info);
         plants.push(plant_info);
         localStorage.setItem('plants',JSON.stringify(plants));
-        if(items.childNodes.length==plants.length-1) items.appendChild(new Plant(plant_info).element);
+        let plant=new Plant(plant_info);
+        plant.createToChart();
+        plant.element.appendChild(plant.toChart);
+        plant.toChart.onclick=()=>{addPlantToChart(plant)}
+        if(items.childNodes.length==plants.length-1) items.appendChild(plant.element);
     }
 }
 filterForm.onsubmit=(e)=>{
@@ -146,11 +147,32 @@ function getBase64(file) {
       reader.onload = () => resolve(reader.result);
       reader.onerror = error => reject(error);
     });
-  }
-plants.slice(0,8).forEach(element => {
-    let plant= new Plant(element);
-    items.appendChild(plant.element);
-});
+}
+async function getPnantsJson(){
+    const url='https://raw.githubusercontent.com/boieva-maryna/epam-js-homework-5/classes/plants.json';
+        plants= await fetch(url).then(response => response.json());
+}
+async function init(){
+    plants=JSON.parse(localStorage.getItem('plants'));
+    if(!plants) await getPnantsJson();
+    plants.slice(0,8).forEach(element => {
+        let plant= new Plant(element);
+        plant.createToChart();
+        if(plant.data.inChart) plant.toChart.classList.add("icofont-check-circled");
+        plant.element.appendChild(plant.toChart);
+        plant.toChart.onclick=()=>{addPlantToChart(plant)}
+        document.getElementById("items").appendChild(plant.element);
+    });
+}
+function addPlantToChart(plant){
+    if(plant.data.inChart) return;
+    basket.push(plant.getData());
+    localStorage.setItem('basket',JSON.stringify(basket));
+    plants[plant.data.id].inChart=true;
+    localStorage.setItem('plants',JSON.stringify(plants));
+    plant.toChart.classList.add("icofont-check-circled");
+    basketIcon.firstChild.innerHTML=basket.length;
+}
 more.onclick=(e)=>{
     let index=items.childNodes.length;
         plants.slice(index,index+8).forEach(element => {

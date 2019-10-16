@@ -16,16 +16,6 @@
         <div id="items" class="grid-view"></div>
     </main>
     <script defer src="plant.js"></script>
-    <script>
-        const items=document.getElementById('items');
-        let plants=JSON.parse(localStorage.getItem('basket'));
-        if(plants){
-            plants.forEach(element => {
-                let plant= new Plant(element);
-                items.appendChild(plant.element);
-            });
-        }
-        else items.innerHTML="Basket is empty"
-    </script>
+    <script defer src="basket.js"></script>
 </body>
 </html>

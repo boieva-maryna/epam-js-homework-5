@@ -9,6 +9,7 @@ class Plant{
         this.title;
         this.price;
         this.isAvailable;
+        this.toChart;
         this.createElement();
     }
     createElement(){
@@ -111,7 +112,17 @@ class Plant{
             this.isAvailable.classList.add("available--false");
         }
     }
+    createToChart(){
+        this.toChart=document.createElement('a');
+        this.toChart.setAttribute('href','#');
+        this.toChart.classList.add('icofont-plus-circle');
+        this.toChart.classList.add('plant_chart');
+    }
+    getData(e){
+        return this.data;
+    }
     setSlider(e){
         this.slider.style.marginLeft='-'+e.target.dataset.number*100+"%";
     }
+    setInChart(){this.data.inChart=true;}
 }
