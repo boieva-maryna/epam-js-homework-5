@@ -45,6 +45,36 @@ footer nav{
     border: none;
     font-size: 2rem;
 }
+.basket{
+    display: block;
+    width: 4rem;
+    height: 4rem;
+    position: fixed;
+    top:50%;
+    left: 90%;
+    border:1px solid #9da2ad;
+    border-radius: 50%;
+    background-color: #23565a;
+    color:white;
+    text-align: center;
+}
+.basket::before{
+    font-size: 2rem;
+    line-height: 4rem;
+}
+.basket span{
+    font-size: 0.7rem;
+    height: 1rem;
+    min-width:1rem;
+    line-height: 1rem;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 60%;
+    background-color: white;
+    color:#23565a;
+    border-radius: 50%;
+}
 .plant{
     position: relative;
     display: grid;
