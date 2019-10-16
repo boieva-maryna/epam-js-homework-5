@@ -172,7 +172,16 @@ async function init(){
     });
 }
 function addPlantToChart(plant){
-    if(plant.data.inChart==true) return;
+    if(plant.data.inChart==true) {
+        basket.pop(plant.getData());
+        localStorage.setItem('basket',JSON.stringify(basket));
+        plants[plant.data.id].inChart=false;
+        localStorage.setItem('plants',JSON.stringify(plants));
+        plant.toChart.classList.remove("icofont-check-circled");
+        plant.toChart.classList.remove('plant_chart--green');
+        basketIcon.firstChild.innerHTML=basket.length;
+        return;
+    }
     basket.push(plant.getData());
     localStorage.setItem('basket',JSON.stringify(basket));
     plants[plant.data.id].inChart=true;
@@ -180,6 +189,9 @@ function addPlantToChart(plant){
     plant.toChart.classList.add("icofont-check-circled");
     plant.toChart.classList.add('plant_chart--green');
     basketIcon.firstChild.innerHTML=basket.length;
+}
+function sortItems(){
+    ite
 }
 more.onclick=(e)=>{
     let index=items.childNodes.length;
