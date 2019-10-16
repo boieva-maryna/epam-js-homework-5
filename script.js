@@ -216,11 +216,17 @@ function filterItems(filter){
     Array.from(document.body.getElementsByClassName('plant')).forEach(el=>{el.style.display="grid"});//Ужас,правда?
     Array.from(document.body.getElementsByClassName('plant')).forEach(el=>{
         if(filter.isAvailable==true && el.dataset.isAvailable=="false"){
-            console.log(el);
+            //console.log(el.dataset.isAvailable,filter.isAvailable);
             el.style.display="none";
         }
-        if(filter.min!==0&&el.dataset.price<filter.min) el.style.display="none";
-        if(filter.max!==0&&el.dataset.price>filter.max) el.style.display="none";
+        if(filter.min!==0&&filter.min!==""&&Number(el.dataset.price)<filter.min) {
+            //console.log(el.dataset.price, filter.min);
+            el.style.display="none";
+        }
+        if(filter.max!==0&&filter.max!==""&&Number(el.dataset.price)>filter.max){
+            console.log(filter.max);
+             el.style.display="none";
+        }
     });
 }
 more.onclick=(e)=>{
